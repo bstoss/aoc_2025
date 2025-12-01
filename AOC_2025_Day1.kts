@@ -7,7 +7,6 @@ val lines = text.lines()
 var current = 50
 var numOfZeros = 0
 lines.forEach { line ->
-    val before = current
     val direction = line.first()
     val num = line.drop(1).toInt()
 
@@ -18,6 +17,8 @@ lines.forEach { line ->
             numOfZeros += 1
         }
     } else {
+         val before = current
+
         current -= num
 
         if (current == 0) {
