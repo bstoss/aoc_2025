@@ -15,17 +15,24 @@ public func day2() {
             
             for id in ids[0]...ids[1] {
                 var stringId = "\(id)"
-                guard stringId.count % 2 == 0 else { continue }
                 
-                let first = stringId.dropFirst(stringId.count/2)
-                let last = stringId.dropLast(stringId.count/2)
+                var current = ""
                 
-                if first == last {
-                    result += id
+                for char in stringId {
+                    
+                    current += String(char)
+                    
+                    guard current.count <= stringId.count/2 else { break }
+                    
+                    if stringId.replacingOccurrences(of: current, with: "").count == 0
+                    && current.count <= stringId.count/2 {
+                        result += id
+                        break
+                    }
                 }
             }
         }
-        
+            
         print(result)
     } catch {
         print(error)
