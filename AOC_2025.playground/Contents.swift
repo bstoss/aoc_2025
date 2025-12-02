@@ -3,10 +3,11 @@ import Foundation
 public func day2() {
 
     do {
-        let fileUrl = Bundle.main.url(forResource: "day_2_test", withExtension: nil)!
-        let input = try String(contentsOf: fileUrl, encoding: .utf8)
+        let fileUrl = Bundle.main.url(forResource: "day_2_source", withExtension: nil)!
+        let input = try String(contentsOf: fileUrl, encoding: .utf8).replacingOccurrences(of: "\n", with: "")
         
         let idRanges = input.split(separator: ",")
+        
         var result = 0
         for idRange in idRanges {
             
