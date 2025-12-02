@@ -1,51 +1,34 @@
 import Foundation
 
-let fileUrl = Bundle.main.url(forResource: "day_1_source", withExtension: nil)!
-let data = try! String(contentsOf: fileUrl, encoding: .utf8)
+public func day2() {
 
-let lines = data.split(separator: "\n")
-
-var current = 50
-var numberOfZeros = 0
-lines.forEach { line in
-    
-    var theLine = line
-    let direction = theLine.removeFirst()
-    let number = Int(theLine)!
-    
-    if direction == "R" {
-        current += number
+    do {
+        let fileUrl = Bundle.main.url(forResource: "day_2_test", withExtension: nil)!
+        let input = try String(contentsOf: fileUrl, encoding: .utf8)
         
-        while current > 99 {
-            numberOfZeros += 1
-            current -= 100
-        }
-        
-    } else {
-        let before = current
-        current -= number
-        
-        if current == 0 {
-            numberOfZeros += 1
-        } else {
+        let idRanges = input.split(separator: ",")
+        var result = 0
+        for idRange in idRanges {
             
-            if current < 0 {
-                while current < 0 {
-                    numberOfZeros += 1
-                    current += 100
-                }
+            let ids = idRange.split(separator: "-").map { Int($0)! }
+            
+            for id in ids[0]...ids[1] {
+                var stringId = "\(id)"
+                guard stringId.count % 2 == 0 else { continue }
                 
-                if before == 0 {
-                    numberOfZeros -= 1
+                let first = stringId.dropFirst(stringId.count/2)
+                let last = stringId.dropLast(stringId.count/2)
+                
+                if first == last {
+                    result += id
                 }
             }
-            
-            if current == 0 {
-                numberOfZeros += 1
-            }
         }
+        
+        print(result)
+    } catch {
+        print(error)
     }
-
 }
 
-print(numberOfZeros)
+day2()
